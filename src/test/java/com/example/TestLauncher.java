@@ -12,7 +12,6 @@ import org.junit.runner.RunWith;
                 FelineTest.class,
                 CatTest.class,
                 LionTest.class,
-                LionMockitoTest.class,
                 LionAlexTest.class
         })
 public class TestLauncher {
