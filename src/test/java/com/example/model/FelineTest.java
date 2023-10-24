@@ -21,36 +21,49 @@ public class FelineTest {
     @Test
     public void getFamilyWithNoParam() {
         String expected = "Кошачьи";
-        assertEquals(expected, feline.getFamily());
+        String actual = feline.getFamily();
+        assertEquals(expected, actual);
+        verify(feline, times(1)).getFamily();
     }
 
     @Test
     public void getFamilyWithAncestorParam() {
         String expected = "Различают семейcтва: заячьи, беличьи, мышиные, кошачьи, псовые, медвежьи, куньи";
-        assertEquals(expected, feline.getFamily("Животные"));
+        String actual = feline.getFamily("Животные");
+        assertEquals(expected, actual);
+        verify(feline, times(1)).getFamily("Животные");
     }
 
     @Test
     public void getFamilyWithWrongAncestorParam() {
         String expected = "Кошачьи";
-        assertEquals(expected, feline.getFamily("Рыбы"));
+        String actual = feline.getFamily("Рыбы");
+        assertEquals(expected, actual);
+        verify(feline, times(1)).getFamily("Рыбы");
     }
 
     @Test
     public void getSound() {
         String expected = "Мяу";
-        assertEquals(expected, feline.getSound());
+        String actual = feline.getSound();
+        assertEquals(expected, actual);
+        verify(feline, times(1)).getSound();
     }
 
     @Test
-    public void getKittensWith1() {
-        int expected = 1;
-        assertEquals(expected, feline.getKittens(1));
+    public void getKittensWithParam() {
+        int expected = 2;
+        int actual = feline.getKittens(2);
+        assertEquals(expected, actual);
+        verify(feline, times(1)).getKittens(2);
     }
 
     @Test
     public void getKittensNoParamInvokeGetKittensWith1() {
-        feline.getKittens();
+        int expected = 1;
+        int actual = feline.getKittens();
+        assertEquals(expected, actual);
+        verify(feline, times(1)).getKittens();
         verify(feline, times(1)).getKittens(1);
     }
 

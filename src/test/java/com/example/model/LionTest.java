@@ -1,9 +1,12 @@
 package com.example.model;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -11,11 +14,16 @@ import java.util.Collection;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 
 @RunWith(Parameterized.class)
 public class LionTest {
-    Feline feline;
+
+    private AutoCloseable closeable;
+    Feline feline = mock(Feline.class);
     Lion lion;
+
     private final String SEX;
     private final Boolean HAS_MANE;
     private final Integer KITTENS_NUMBER;
@@ -36,6 +44,26 @@ public class LionTest {
         });
     }
 
+    @Before
+    public void openMocks() {
+        closeable = MockitoAnnotations.openMocks(this);
+    }
+
+    @After
+    public void releaseMocks() throws Exception {
+        closeable.close();
+    }
+
+    @Test
+    public void LionSexException() {
+        String expectedExceptionMessage = "Используйте допустимые значения пола животного: 'Самeц' или 'Самка'";
+        Exception exception = assertThrows(
+                Exception.class,
+                () -> lion = new Lion(feline, new StringBuilder(SEX).reverse().toString())
+        );
+        assertEquals(expectedExceptionMessage, exception.getMessage());
+    }
+
     private void runTestOf(String methodName, String expected) {
         Method method;
         String actual;
@@ -49,43 +77,37 @@ public class LionTest {
         catch(Exception e) { fail(); }
     }
 
-    @Before
-    public void getFeline() {
-        feline = new Feline();
-    }
-
-    @Test
-    public void getFamily() {
-        runTestOf("getFamily","Кошачьи");
-    }
-
-    @Test
-    public void getKittens() {
-        runTestOf("getKittens", KITTENS_NUMBER.toString());
-    }
-
-    @Test
-    public void getSound() {
-        runTestOf("getSound", "Мяу");
-    }
-
     @Test
     public void doesHaveMane() {
         runTestOf("doesHaveMane", HAS_MANE.toString());
     }
 
     @Test
-    public void getFood() {
-        runTestOf("getFood", FOOD.toString());
+    public void getFamily() {
+        Mockito.when(feline.getFamily()).thenReturn("Кошачьи");
+        runTestOf("getFamily","Кошачьи");
+        Mockito.verify(feline, times(1)).getFamily();
     }
 
     @Test
-    public void LionSexException() {
-        String expectedExceptionMessage = "Используйте допустимые значения пола животного: 'Самeц' или 'Самка'";
-        Exception exception = assertThrows(
-                Exception.class,
-                () -> lion = new Lion(feline, new StringBuilder(SEX).reverse().toString())
-        );
-        assertEquals(expectedExceptionMessage, exception.getMessage());
+    public void getKittens() {
+        Mockito.when(feline.getKittens()).thenReturn(KITTENS_NUMBER);
+        runTestOf("getKittens", KITTENS_NUMBER.toString());
+        Mockito.verify(feline, times(1)).getKittens();
+    }
+
+    @Test
+    public void getSound() {
+        Mockito.when(feline.getSound()).thenReturn("Мяу");
+        runTestOf("getSound", "Мяу");
+        Mockito.verify(feline, times(1)).getSound();
+    }
+
+
+    @Test
+    public void getFood() throws Exception {
+        Mockito.when(feline.getFood()).thenReturn(FOOD);
+        runTestOf("getFood", FOOD.toString());
+        Mockito.verify(feline, times(1)).getFood();
     }
 }
