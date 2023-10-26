@@ -1,7 +1,6 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-untitled,com.example.model,Cat,0,22,0,0,0,7,0,5,0,5
-untitled,com.example.model,Feline,0,27,0,2,0,7,0,8,0,7
-untitled,com.example.model,Lion,0,46,0,3,0,14,0,8,0,6
-untitled,com.example.model,Animal,0,37,0,4,0,8,0,6,0,3
-untitled,com.example.model,LionAlex,0,17,0,0,0,5,0,4,0,4
-untitled,com.example.model,Predator,0,7,0,0,0,2,0,2,0,2
+sprint-6,ru.yandex.praktikum.zoo.model,Animal,0,27,0,4,0,7,0,5,0,3
+sprint-6,ru.yandex.praktikum.zoo.model,Feline,0,15,0,0,0,5,0,5,0,5
+sprint-6,ru.yandex.praktikum.zoo.model,Cat,0,12,0,0,0,5,0,3,0,3
+sprint-6,ru.yandex.praktikum.zoo.model,Lion,0,39,0,4,0,11,0,6,0,4
+sprint-6,ru.yandex.praktikum.zoo.model,LionAlex,0,17,0,0,0,5,0,4,0,4
